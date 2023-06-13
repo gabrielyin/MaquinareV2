@@ -7,10 +7,45 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        main: 'var(--font-roboto)',
+        sec: 'var(--font-hind)',
+        ter: 'var(--font-merriweather)',
+      },
+
+      colors: {
+        'bright-sun': {
+          50: '#fefae8',
+          100: '#fef5c3',
+          200: '#feec8a',
+          300: '#fde047',
+          400: '#fad615',
+          500: '#eac608',
+          600: '#caaa04',
+          700: '#a18807',
+          800: '#85720e',
+          900: '#716212',
+          950: '#423806',
+        },
+
+        candlelight: {
+          50: '#fefae8',
+          100: '#fef2c3',
+          200: '#fee78a',
+          300: '#fdd847',
+          400: '#facc15',
+          500: '#eabd08',
+          600: '#caa204',
+          700: '#a18207',
+          800: '#856d0e',
+          900: '#715e12',
+          950: '#423606',
+        },
+      },
+
+      backgroundColor: {
+        footer: '#1F1F1F',
+        body: '#FFFDF6',
       },
     },
   },
