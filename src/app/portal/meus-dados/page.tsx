@@ -11,7 +11,7 @@ export default function MeusDados() {
         <section>
           <h3 className="font-sec text-2xl font-semibold">Perfil</h3>
           <span>
-            <p className="leading-tight">
+            <p className="font-sec leading-tight">
               Essas são as informações usadas para acessar a sua conta no portal
               do Maquinare
             </p>
