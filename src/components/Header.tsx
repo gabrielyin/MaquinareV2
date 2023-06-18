@@ -7,7 +7,7 @@ import Logo from '@/src/assets/images/logo.svg'
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function PortalHeader() {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
