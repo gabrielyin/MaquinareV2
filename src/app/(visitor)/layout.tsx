@@ -7,6 +7,8 @@ import {
 } from 'next/font/google'
 
 import '@/src/styles/globals.css'
+import Header from '@/src/components/Header'
+import Footer from '@/src/components/Footer'
 
 export const roboto = Roboto({ subsets: ['latin'], variable: '--font-roboto' })
 
@@ -32,7 +34,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${roboto.variable} ${hind.variable} ${merriweather.variable}`}
       >
-        {children}
+        <Header />
+
+        <main className="min-h-screen">{children}</main>
+
+        <Footer />
       </body>
     </html>
   )
