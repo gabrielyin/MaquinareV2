@@ -24,6 +24,7 @@ export default function ProductCard({
           fill={true}
           style={{ objectFit: 'contain' }}
         />
+
         {isNew && (
           <div className="absolute bottom-0 w-full bg-bright-sun-300 text-center font-sec text-bright-sun-900">
             Novo
@@ -31,7 +32,7 @@ export default function ProductCard({
         )}
       </div>
 
-      <section className="flex flex-1 flex-col justify-between px-3 py-4 font-sec">
+      <section className="flex flex-1 flex-col justify-between px-3 py-3 font-sec">
         <div>
           <h3 className="text-xl font-semibold">{title}</h3>
           <h3 className="text-slate-500">{location}</h3>
