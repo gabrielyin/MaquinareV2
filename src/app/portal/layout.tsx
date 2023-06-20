@@ -5,7 +5,7 @@ import '@/src/styles/globals.css'
 
 import { hind, merriweather, roboto } from '@/src/app/(visitor)/layout'
 import Footer from '@/src/components/Footer'
-import PortalHeader from '@/src/components/PortalHeader'
+import Header from '@/src/components/Header'
 
 export const metadata = {
   title: 'Home',
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${roboto.variable} ${hind.variable} ${merriweather.variable} bg-body`}
       >
-        <PortalHeader />
+        <Header />
 
         <main className="min-h-screen p-6">{children}</main>
 
