@@ -15,3 +15,26 @@ export async function POST(request: Request) {
 
   return NextResponse.json(user)
 }
+
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
+
+  if (!id) {
+    return NextResponse.json({ message: 'ID not found' }, { status: 404 })
+  }
+
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: {
+        id,
+      },
+    })
+
+    if (deletedUser) {
+      return NextResponse.json({ message: 'User deleted' })
+    }
+  } catch (error) {
+    return NextResponse.json({ message: 'Unable to delete User' })
+  }
+}
