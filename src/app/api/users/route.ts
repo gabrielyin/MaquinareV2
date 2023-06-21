@@ -38,3 +38,16 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ message: 'Unable to delete User' })
   }
 }
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const queryObject = Object.fromEntries(searchParams)
+
+  const user = await prisma.user.findMany({
+    where: queryObject,
+  })
+
+  console.log(user)
+
+  return NextResponse.json(user)
+}
