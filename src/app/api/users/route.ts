@@ -47,7 +47,5 @@ export async function GET(request: Request) {
     where: queryObject,
   })
 
-  console.log(user)
-
   return NextResponse.json(user)
 }
