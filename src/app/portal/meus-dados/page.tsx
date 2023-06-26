@@ -1,10 +1,11 @@
 import Button from '@/src/components/Button'
 import PortalNav from '@/src/components/PortalNav'
+import ProtectedRoute from '@/src/components/ProtectedRoute'
 import TextInput from '@/src/components/TextInput'
 
 export default function MeusDados() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
+    <ProtectedRoute className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
       <PortalNav />
 
       <form className="grid gap-5 lg:max-w-lg">
@@ -28,6 +29,6 @@ export default function MeusDados() {
 
         <Button text="Atualizar" className="w-36" />
       </form>
-    </div>
+    </ProtectedRoute>
   )
 }

@@ -1,9 +1,10 @@
 import ContactCard from '@/src/components/ContactCard'
 import PortalNav from '@/src/components/PortalNav'
+import ProtectedRoute from '@/src/components/ProtectedRoute'
 
 export default function Contatos() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
+    <ProtectedRoute className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
       <PortalNav />
 
       <div className="grid gap-7">
@@ -23,6 +24,6 @@ export default function Contatos() {
           <ContactCard name="Gabriel Yin" email="gabriel@gmail.com" id="#3" />
         </section>
       </div>
-    </div>
+    </ProtectedRoute>
   )
 }

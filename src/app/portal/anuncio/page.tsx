@@ -1,9 +1,10 @@
 import AnuncioForm from '@/src/components/AnuncioForm'
+import ProtectedRoute from '@/src/components/ProtectedRoute'
 import Link from 'next/link'
 
 export default function EditarOuAdicionarAnuncio() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
+    <ProtectedRoute className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
       <nav className="duration-400 hidden h-fit gap-2 font-sec font-medium lg:grid">
         <Link
           href="#"
@@ -28,6 +29,6 @@ export default function EditarOuAdicionarAnuncio() {
       </nav>
 
       <AnuncioForm />
-    </div>
+    </ProtectedRoute>
   )
 }
