@@ -8,6 +8,8 @@ import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
 import { api } from '@/src/lib/axios'
 import Link from 'next/link'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const registerFormSchema = z
   .object({
@@ -25,14 +27,35 @@ const registerFormSchema = z
 type RegisterFormData = z.infer<typeof registerFormSchema>
 
 export default function Register() {
+  const router = useRouter()
+  const session = useSession()
+
   const { register, handleSubmit } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
 
   async function onFormSubmit(data: RegisterFormData) {
-    const { confirmPassword, ...remainingData } = data
+    try {
+      const { confirmPassword, ...remainingData } = data
 
-    await api.post('/api/users/register', remainingData)
+      const response = await api.post('/api/users/register', remainingData)
+
+      console.log(response)
+
+      if (response.data) {
+        await signIn('credentials', {
+          email: data.email,
+          password: data.password,
+          redirect: false,
+        })
+      }
+
+      if (session.status === 'authenticated') {
+        router.push('/portal/anuncios')
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

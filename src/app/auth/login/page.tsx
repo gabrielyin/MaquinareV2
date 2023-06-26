@@ -6,8 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
-import { api } from '@/src/lib/axios'
 import Link from 'next/link'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const loginFormSchema = z.object({
   email: z.string(),
@@ -17,12 +18,21 @@ const loginFormSchema = z.object({
 type LoginFormData = z.infer<typeof loginFormSchema>
 
 export default function Login() {
+  const router = useRouter()
+  const session = useSession()
+
   const { register, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
   })
 
   async function onFormSubmit(data: LoginFormData) {
-    await api.post('/api/users/login', data)
+    try {
+      await signIn('credentials', { ...data, redirect: false })
+
+      if (session.status === 'authenticated') router.push('/portal/anuncios')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
