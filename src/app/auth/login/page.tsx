@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-hot-toast'
+import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { signIn, useSession } from 'next-auth/react'
 
 import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
-import Link from 'next/link'
-import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
 
 const loginFormSchema = z.object({
   email: z.string(),
@@ -21,8 +21,11 @@ type LoginFormData = z.infer<typeof loginFormSchema>
 export default function Login() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const session = useSession()
 
   const callbackUrl = searchParams.get('callbackUrl') ?? '/portal/anuncios'
+
+  if (session.status === 'authenticated') router.push(callbackUrl)
 
   const { register, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
