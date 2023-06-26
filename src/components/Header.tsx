@@ -13,7 +13,9 @@ export default function Header() {
   return (
     <header className="h-[70px] bg-bright-sun-300 px-4">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between">
-        <Image src={Logo} alt="Maquinare logo" />
+        <Link href="/">
+          <Image src={Logo} alt="Maquinare logo" />
+        </Link>
 
         {/* Avatar Mobile */}
         <div
@@ -34,7 +36,7 @@ export default function Header() {
           <Link href="#">Sobre nós</Link>
 
           <Link
-            href="#"
+            href="/auth/login"
             className="rounded border border-neutral-800 bg-transparent px-6 py-1.5 transition hover:border-transparent hover:bg-slate-900 hover:bg-opacity-10"
           >
             Entrar

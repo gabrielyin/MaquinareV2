@@ -3,7 +3,7 @@ import PortalNav from '@/src/components/PortalNav'
 
 export default function Contatos() {
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[300px,auto]">
+    <div className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
       <PortalNav />
 
       <div className="grid gap-7">

@@ -4,7 +4,7 @@ export default function PortalNav() {
   return (
     <nav className="duration-400 hidden h-fit gap-2 font-sec font-medium lg:grid">
       <Link
-        href="#"
+        href="/portal/anuncios"
         className="flex items-center gap-3 rounded p-2 text-lg transition hover:bg-[#EBE9E4]"
       >
         <svg
@@ -25,7 +25,7 @@ export default function PortalNav() {
       </Link>
 
       <Link
-        href="#"
+        href="/portal/meus-dados"
         className="flex items-center gap-3 rounded p-2 text-lg transition hover:bg-[#EBE9E4]"
       >
         <svg
@@ -46,7 +46,7 @@ export default function PortalNav() {
       </Link>
 
       <Link
-        href="#"
+        href="/portal/contatos"
         className="flex items-center gap-3 rounded p-2 text-lg transition hover:bg-[#EBE9E4]"
       >
         <svg
