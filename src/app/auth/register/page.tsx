@@ -3,6 +3,7 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-hot-toast'
 
 import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
@@ -40,9 +41,9 @@ export default function Register() {
 
       const response = await api.post('/api/users/register', remainingData)
 
-      console.log(response)
-
       if (response.data) {
+        toast.success('Usuário criado com successo')
+
         await signIn('credentials', {
           email: data.email,
           password: data.password,
@@ -54,7 +55,7 @@ export default function Register() {
         router.push('/portal/anuncios')
       }
     } catch (error) {
-      console.error(error)
+      toast.error('Não foi possível criar o usuário')
     }
   }
 

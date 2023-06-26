@@ -10,6 +10,7 @@ import '@/src/styles/globals.css'
 import Header from '@/src/components/Header'
 import Footer from '@/src/components/Footer'
 import AuthProvider from '../context/AuthContext'
+import ToasterContext from '../context/ToasterContext'
 
 export const roboto = Roboto({ subsets: ['latin'], variable: '--font-roboto' })
 
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${roboto.variable} ${hind.variable} ${merriweather.variable}`}
       >
         <AuthProvider>
+          <ToasterContext />
           <Header />
 
           <main className="min-h-screen">{children}</main>

@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { toast } from 'react-hot-toast'
 
 import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
@@ -31,11 +32,15 @@ export default function Login() {
     try {
       const response = await signIn('credentials', { ...data, redirect: false })
 
-      if (!response?.error) {
+      if (response?.error) {
+        toast.error('Usuário não encontrado')
+      } else {
+        toast.success('Login feito com successo')
+
         router.push(callbackUrl)
       }
     } catch (error) {
-      console.error(error)
+      toast.error('Não foi possível fazer o login')
     }
   }
 
