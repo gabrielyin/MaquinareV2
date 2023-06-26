@@ -29,10 +29,12 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  secret: 'sasldjadoi2j3423',
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 7,
+  },
+  pages: {
+    signIn: '/auth/login',
   },
 }
 

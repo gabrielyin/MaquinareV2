@@ -7,8 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
 import Link from 'next/link'
-import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const loginFormSchema = z.object({
   email: z.string(),
@@ -19,7 +19,9 @@ type LoginFormData = z.infer<typeof loginFormSchema>
 
 export default function Login() {
   const router = useRouter()
-  const session = useSession()
+  const searchParams = useSearchParams()
+
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/portal/anuncios'
 
   const { register, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
@@ -27,9 +29,11 @@ export default function Login() {
 
   async function onFormSubmit(data: LoginFormData) {
     try {
-      await signIn('credentials', { ...data, redirect: false })
+      const response = await signIn('credentials', { ...data, redirect: false })
 
-      if (session.status === 'authenticated') router.push('/portal/anuncios')
+      if (!response?.error) {
+        router.push(callbackUrl)
+      }
     } catch (error) {
       console.error(error)
     }

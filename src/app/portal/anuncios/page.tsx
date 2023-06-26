@@ -1,11 +1,10 @@
 import Button from '@/src/components/Button'
 import Card from '@/src/components/Card'
 import PortalNav from '@/src/components/PortalNav'
-import ProtectedRoute from '@/src/components/ProtectedRoute'
 
 export default function Anuncios() {
   return (
-    <ProtectedRoute className="mx-auto max-w-6xl p-8">
+    <div className="mx-auto max-w-6xl p-8">
       <div className="grid gap-8 lg:grid-cols-[300px,auto]">
         <PortalNav />
 
@@ -42,6 +41,6 @@ export default function Anuncios() {
           <Card />
         </div>
       </div>
-    </ProtectedRoute>
+    </div>
   )
 }
