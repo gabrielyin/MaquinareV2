@@ -6,7 +6,7 @@ export default function EditarOuAdicionarAnuncio() {
     <div className="mx-auto grid max-w-6xl gap-8 p-8 lg:grid-cols-[300px,auto]">
       <nav className="duration-400 hidden h-fit gap-2 font-sec font-medium lg:grid">
         <Link
-          href="#"
+          href="/portal/anuncios"
           className="flex items-center gap-3 rounded p-2 text-lg transition hover:bg-[#EBE9E4]"
         >
           <svg
