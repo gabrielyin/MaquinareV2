@@ -6,8 +6,11 @@ import Modal from 'react-modal'
 import Logo from '@/src/assets/images/logo.svg'
 import { useState } from 'react'
 import Link from 'next/link'
+import { signOut, useSession } from 'next-auth/react'
 
 export default function Header() {
+  const session = useSession()
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -39,7 +42,16 @@ export default function Header() {
             href="/auth/login"
             className="rounded border border-neutral-800 bg-transparent px-6 py-1.5 transition hover:border-transparent hover:bg-slate-900 hover:bg-opacity-10"
           >
-            Entrar
+            {session.status === 'authenticated' ? (
+              <div className="-mx-2 flex items-center gap-3">
+                <div className="flex h-7 w-7 justify-center rounded-full bg-slate-100 capitalize text-slate-400">
+                  {session.data!.user!.name![0]}
+                </div>
+                {session.data?.user?.name}
+              </div>
+            ) : (
+              <>Entrar</>
+            )}
           </Link>
         </nav>
 
@@ -113,6 +125,13 @@ export default function Header() {
               Contatos
             </div>
           </Link>
+
+          <button
+            onClick={() => signOut()}
+            className="w-full border-b bg-neutral-800 p-6 text-left font-sec text-white"
+          >
+            Sair
+          </button>
         </Modal>
       </div>
     </header>
