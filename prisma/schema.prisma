@@ -32,6 +32,7 @@ model Ads {
 
   title          String
   imageUrl       String
+  type           String
   brand          String
   description    String
   shippingPolicy String
