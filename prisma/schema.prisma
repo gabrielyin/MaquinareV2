@@ -14,12 +14,12 @@ model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   name      String
-  email     String @unique
+  email     String  @unique
   password  String
-  cpf       String @unique
-  telephone String
-  role      String @default("user")
-  avatarUrl String
+  cpf       String  @unique
+  telephone String?
+  role      String  @default("user")
+  avatarUrl String?
 
   contacts Contacts[]
   ads      Ads[]
