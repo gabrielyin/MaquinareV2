@@ -21,17 +21,26 @@ export default function Header() {
         </Link>
 
         {/* Avatar Mobile */}
-        <div
-          className="h-[50px] w-[50px] overflow-hidden rounded-full md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <Image
-            src="https://avatars.githubusercontent.com/u/70323043?v=4"
-            width={60}
-            height={60}
-            alt="Avatar"
-          />
-        </div>
+        {session.status === 'authenticated' ? (
+          <div
+            className="h-[50px] w-[50px] overflow-hidden rounded-full md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Image
+              src="https://avatars.githubusercontent.com/u/70323043?v=4"
+              width={60}
+              height={60}
+              alt="Avatar"
+            />
+          </div>
+        ) : (
+          <Link
+            href="/auth/login"
+            className="rounded border border-neutral-800 bg-transparent px-6 py-1.5 transition hover:border-transparent hover:bg-slate-900 hover:bg-opacity-10"
+          >
+            <>Entrar</>
+          </Link>
+        )}
 
         <nav className="hidden items-center font-sec text-lg md:flex md:gap-6">
           <Link href="#">Anunciar</Link>
