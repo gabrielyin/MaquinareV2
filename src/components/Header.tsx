@@ -105,7 +105,7 @@ export default function Header() {
               />
             </div>
 
-            <p className="font-sec">gabriel@gmail.com</p>
+            <p className="font-sec">{session.data?.user?.email}</p>
           </div>
 
           <Link
