@@ -1,14 +1,62 @@
+'use client'
+
 import TextInput from '@/src/components/TextInput'
 import TextArea from '@/src/components/TextArea'
 import Button from '@/src/components/Button'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { api } from '@/src/lib/axios'
+import { useSession } from 'next-auth/react'
+
+const createFormSchema = z.object({
+  title: z.string(),
+  imageUrl: z
+    .string()
+    .default('https://avatars.githubusercontent.com/u/70323043?v=4'),
+  type: z.string(),
+  brand: z.string(),
+  model: z.string(),
+  description: z.string(),
+  shippingPolicy: z.string(),
+  salePrice: z.string().transform((price) => parseFloat(price)),
+  rentPrice: z.string().transform((price) => parseFloat(price)),
+  neighbourhood: z.string(),
+  city: z.string(),
+  state: z.string(),
+})
+
+type CreateFormData = z.infer<typeof createFormSchema>
 
 export default function AnuncioForm() {
+  const session = useSession()
+
+  const { register, handleSubmit } = useForm<CreateFormData>({
+    resolver: zodResolver(createFormSchema),
+  })
+
+  async function onFormSubmit(data: CreateFormData) {
+    const response = await api.post('/api/ads/create', {
+      ...data,
+      userId: session.data?.user.id,
+    })
+
+    console.log(response)
+  }
+
   return (
-    <form className="mb-16 grid gap-5 lg:max-w-lg">
+    <form
+      className="mb-16 grid gap-5 lg:max-w-lg"
+      onSubmit={handleSubmit(onFormSubmit)}
+    >
       <section className="grid gap-3">
         <h3 className="font-sec text-2xl font-semibold">Criar anúncio</h3>
 
-        <TextInput label="Título do anúncio" placeholder="email@gmail.com" />
+        <TextInput
+          label="Título do anúncio"
+          placeholder="Gerador de gasolina 3KVA"
+          register={register('title')}
+        />
 
         <div className="grid grid-cols-2 gap-3">
           <label className="grid h-36 place-items-center rounded border border-slate-300 bg-white shadow-sm">
@@ -33,17 +81,34 @@ export default function AnuncioForm() {
           </label>
         </div>
 
-        <TextInput label="Tipo da máquina" placeholder="Gerador" />
+        <TextInput
+          label="Tipo da máquina"
+          placeholder="Gerador"
+          register={register('type')}
+        />
 
-        <TextInput label="Marca" placeholder="Stemac" />
+        <TextInput
+          label="Marca"
+          placeholder="Stemac"
+          register={register('brand')}
+        />
 
-        <TextInput label="Modelo" placeholder="1104-44G" />
+        <TextInput
+          label="Modelo"
+          placeholder="1104-44G"
+          register={register('model')}
+        />
 
-        <TextArea label="Descrição" placeholder="Descrição" />
+        <TextArea
+          label="Descrição"
+          placeholder="Descrição"
+          register={register('description')}
+        />
 
         <TextArea
           label="Política de entrega"
           placeholder="Política de entrega"
+          register={register('shippingPolicy')}
         />
       </section>
 
@@ -55,22 +120,42 @@ export default function AnuncioForm() {
           </p>
         </span>
 
-        <TextInput label="Preço" placeholder="R$ 8.000,00" />
+        <TextInput
+          label="Preço"
+          placeholder="R$ 8.000,00"
+          register={register('salePrice')}
+        />
 
-        <TextInput label="Aluguel" placeholder="R$ 400,00" />
+        <TextInput
+          label="Aluguel"
+          placeholder="R$ 400,00"
+          register={register('rentPrice')}
+        />
       </section>
 
       <section className="grid gap-3">
         <h3 className="font-sec text-2xl font-semibold">Local</h3>
 
-        <TextInput label="Bairro" placeholder="Butantã" />
+        <TextInput
+          label="Bairro"
+          placeholder="Butantã"
+          register={register('neighbourhood')}
+        />
 
-        <TextInput label="Cidade" placeholder="São Paulo" />
+        <TextInput
+          label="Cidade"
+          placeholder="São Paulo"
+          register={register('city')}
+        />
 
-        <TextInput label="Estado" placeholder="SP" />
+        <TextInput
+          label="Estado"
+          placeholder="SP"
+          register={register('state')}
+        />
       </section>
 
-      <Button text="Enviar" />
+      <Button text="Enviar" type="submit" />
     </form>
   )
 }
