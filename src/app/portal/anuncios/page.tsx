@@ -1,6 +1,7 @@
 import Button from '@/src/components/Button'
 import Card from '@/src/components/Card'
 import PortalNav from '@/src/components/PortalNav'
+import Link from 'next/link'
 
 export default function Anuncios() {
   return (
@@ -10,10 +11,12 @@ export default function Anuncios() {
 
         <div className="grid gap-4">
           <div className="lg:justify flex flex-col gap-4 lg:flex-row">
-            <Button
-              className="whitespace-nowrap lg:order-1"
-              text="Criar anúncio"
-            />
+            <Link href="/portal/anuncio" className="w-full">
+              <Button
+                className="w-full whitespace-nowrap lg:order-1"
+                text="Criar anúncio"
+              />
+            </Link>
 
             <div className="flex items-center justify-between lg:w-full">
               <h3 className="font-sec text-2xl font-semibold">1 Anúncio(s)</h3>
