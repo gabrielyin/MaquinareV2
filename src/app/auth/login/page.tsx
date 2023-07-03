@@ -35,6 +35,8 @@ export default function Login() {
     try {
       const response = await signIn('credentials', { ...data, redirect: false })
 
+      console.log(response)
+
       if (response?.error) {
         toast.error('Usuário não encontrado')
       } else {
