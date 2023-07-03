@@ -26,12 +26,9 @@ export default function Header() {
             className="h-[50px] w-[50px] overflow-hidden rounded-full md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Image
-              src="https://avatars.githubusercontent.com/u/70323043?v=4"
-              width={60}
-              height={60}
-              alt="Avatar"
-            />
+            <div className="grid h-full w-full place-items-center bg-slate-100 text-xl capitalize text-slate-400">
+              {session.data!.user!.name![0]}
+            </div>
           </div>
         ) : (
           <Link

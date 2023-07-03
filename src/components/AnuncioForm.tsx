@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { api } from '@/src/lib/axios'
+import { useSession } from 'next-auth/react'
 
 const createFormSchema = z.object({
   title: z.string(),
@@ -23,18 +24,22 @@ const createFormSchema = z.object({
   neighbourhood: z.string(),
   city: z.string(),
   state: z.string(),
-  userId: z.string().default('649f1e18fc14743192ba60a3'),
 })
 
 type CreateFormData = z.infer<typeof createFormSchema>
 
 export default function AnuncioForm() {
+  const session = useSession()
+
   const { register, handleSubmit } = useForm<CreateFormData>({
     resolver: zodResolver(createFormSchema),
   })
 
   async function onFormSubmit(data: CreateFormData) {
-    const response = await api.post('/api/ads/create', data)
+    const response = await api.post('/api/ads/create', {
+      ...data,
+      userId: session.data?.user.id,
+    })
 
     console.log(response)
   }

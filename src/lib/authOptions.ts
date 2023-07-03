@@ -22,13 +22,29 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user || !user.password) {
-          throw new Error('No user found')
+          return null
         }
 
         return user
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user }
+    },
+
+    async session({ session, token }: any) {
+      session.user = {
+        id: token.id,
+        email: token.email,
+        name: token.name,
+        avatarUrl: token.avatarUrl,
+      }
+
+      return session
+    },
+  },
   session: {
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 7,
