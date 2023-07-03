@@ -35,6 +35,6 @@
     "@rocketseat/eslint-config": "^1.2.0",
     "@types/react-modal": "^3.16.0",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "prisma": "^4.16.0"
+    "prisma": "^4.16.2"
   }
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import LogoutButton from './LogoutButton'
 
 export default function PortalNav() {
   return (
@@ -65,6 +66,8 @@ export default function PortalNav() {
         </svg>
         Contatos
       </Link>
+
+      <LogoutButton />
     </nav>
   )
 }

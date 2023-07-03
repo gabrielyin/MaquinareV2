@@ -6,8 +6,11 @@ import Modal from 'react-modal'
 import Logo from '@/src/assets/images/logo.svg'
 import { useState } from 'react'
 import Link from 'next/link'
+import { signOut, useSession } from 'next-auth/react'
 
 export default function Header() {
+  const session = useSession()
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -18,17 +21,23 @@ export default function Header() {
         </Link>
 
         {/* Avatar Mobile */}
-        <div
-          className="h-[50px] w-[50px] overflow-hidden rounded-full md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <Image
-            src="https://avatars.githubusercontent.com/u/70323043?v=4"
-            width={60}
-            height={60}
-            alt="Avatar"
-          />
-        </div>
+        {session.status === 'authenticated' ? (
+          <div
+            className="h-[50px] w-[50px] overflow-hidden rounded-full md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <div className="grid h-full w-full place-items-center bg-slate-100 text-xl capitalize text-slate-400">
+              {session.data!.user!.name![0]}
+            </div>
+          </div>
+        ) : (
+          <Link
+            href="/auth/login"
+            className="rounded border border-neutral-800 bg-transparent px-6 py-1.5 transition hover:border-transparent hover:bg-slate-900 hover:bg-opacity-10 md:hidden"
+          >
+            <>Entrar</>
+          </Link>
+        )}
 
         <nav className="hidden items-center font-sec text-lg md:flex md:gap-6">
           <Link href="#">Anunciar</Link>
@@ -39,7 +48,16 @@ export default function Header() {
             href="/auth/login"
             className="rounded border border-neutral-800 bg-transparent px-6 py-1.5 transition hover:border-transparent hover:bg-slate-900 hover:bg-opacity-10"
           >
-            Entrar
+            {session.status === 'authenticated' ? (
+              <div className="-mx-2 flex items-center gap-3">
+                <div className="flex h-7 w-7 justify-center rounded-full bg-slate-100 capitalize text-slate-400">
+                  {session.data!.user!.name![0]}
+                </div>
+                {session.data?.user?.name}
+              </div>
+            ) : (
+              <>Entrar</>
+            )}
           </Link>
         </nav>
 
@@ -84,7 +102,7 @@ export default function Header() {
               />
             </div>
 
-            <p className="font-sec">gabriel@gmail.com</p>
+            <p className="font-sec">{session.data?.user?.email}</p>
           </div>
 
           <Link
@@ -113,6 +131,13 @@ export default function Header() {
               Contatos
             </div>
           </Link>
+
+          <button
+            onClick={() => signOut()}
+            className="w-full border-b bg-neutral-800 p-6 text-left font-sec text-white"
+          >
+            Sair
+          </button>
         </Modal>
       </div>
     </header>
