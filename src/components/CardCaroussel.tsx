@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
 
 interface CardCarousselInterface {
@@ -13,6 +13,7 @@ export default function CardCaroussel({
   children,
 }: CardCarousselInterface) {
   const [loaded, setLoaded] = useState(false)
+
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     created() {
@@ -34,6 +35,10 @@ export default function CardCaroussel({
       spacing: 10,
     },
   })
+
+  useEffect(() => {
+    instanceRef?.current?.update()
+  }, [instanceRef, children])
 
   return (
     <div className="grid place-items-center gap-5 px-6 py-7">

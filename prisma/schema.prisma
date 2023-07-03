@@ -47,6 +47,8 @@ model Ads {
 
   userId String? @db.ObjectId
   User   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
 }
 
 model Contacts {
