@@ -1,11 +1,25 @@
-import ProductCardListing from '@/src/components/ProductCardListing'
+'use client'
+
+import QueryResult from '@/src/components/QueryResult'
 import SearchInput from '@/src/components/SearchInput'
+import { useRouter } from 'next/navigation'
 
 export default function SearchQuery() {
+  const router = useRouter()
+
+  function handleSubmit(e: any) {
+    e.preventDefault()
+    const newURL = encodeURIComponent(e.target.elements.input.value)
+    router.push(`/search_query?query=${newURL}`)
+    e.target.elements.input.value = ''
+  }
+
   return (
     <div className="mx-auto max-w-6xl gap-8 p-8 lg:grid lg:grid-cols-[300px,auto]">
       <div className="grid h-fit gap-4 lg:rounded-lg lg:border lg:p-4">
-        <SearchInput classname="!max-w-none" />
+        <form onSubmit={handleSubmit}>
+          <SearchInput classname="!max-w-none" name="input" />
+        </form>
 
         <div className="flex gap-3">
           <button className="flex-1 rounded-lg bg-candlelight-400 p-2.5 font-sec font-semibold text-black transition hover:bg-candlelight-500">
@@ -59,32 +73,7 @@ export default function SearchQuery() {
 
         <h3 className="font-sec text-2xl font-semibold">1 Anúncio(s)</h3>
 
-        <ProductCardListing
-          image="https://img.lojadomecanico.com.br/IMAGENS/33/326/85851/1597953410549.JPG"
-          isNew={true}
-          title={'Gerador gasolina 3Kva'}
-          category="Gerador"
-          location={'Butantã, São Paulo - SP'}
-          price={'1.900,00'}
-        />
-
-        <ProductCardListing
-          image="https://img.lojadomecanico.com.br/IMAGENS/31/284/448816/1675766483776.JPG"
-          isNew={true}
-          title={'Betoneira CSM'}
-          category="Betoneira"
-          location={'Butantã, São Paulo - SP'}
-          price={'4.000,00'}
-        />
-
-        <ProductCardListing
-          image="https://img.lojadomecanico.com.br/IMAGENS/21/159/140731/1645727097468.JPG"
-          isNew={true}
-          title={'Compressor 24L'}
-          category="Compressor"
-          location={'Butantã, São Paulo - SP'}
-          price={'3.700,00'}
-        />
+        <QueryResult />
       </div>
     </div>
   )

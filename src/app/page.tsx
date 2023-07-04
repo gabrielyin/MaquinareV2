@@ -6,9 +6,17 @@ import SearchInput from '@/src/components/SearchInput'
 import ServiceCard from '@/src/components/ServiceCard'
 import { useEffect, useState } from 'react'
 import { api } from '../lib/axios'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [ads, setAds] = useState<any[]>([])
+  const router = useRouter()
+
+  function handleSubmit(e: any) {
+    e.preventDefault()
+    const newURL = encodeURIComponent(e.target.elements.input.value)
+    router.push(`/search_query?query=${newURL}`)
+  }
 
   useEffect(() => {
     async function getRecentAds() {
@@ -32,7 +40,13 @@ export default function Home() {
           Encontre máquinas, ferramentas e equipamentos para a sua construção
         </p>
 
-        <SearchInput />
+        <form onSubmit={handleSubmit}>
+          <SearchInput
+            // value={query}
+            // onChange={(e: any) => setQuery(e.target.value)}
+            name="input"
+          />
+        </form>
       </div>
 
       <div className="mx-auto max-w-6xl">
