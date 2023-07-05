@@ -36,6 +36,7 @@ export default function QueryResult() {
         return (
           <ProductCardListing
             key={info._id.toString()}
+            id={info._id}
             image={info.imageUrl}
             isNew={true}
             title={info.title}

@@ -46,8 +46,8 @@ export default function AnunciosList() {
         return (
           <Card
             key={info.id}
-            imageUrl={info.imageUrl}
             id={info.id}
+            imageUrl={info.imageUrl}
             salePrice={info.salePrice}
             rentPrice={info.rentPrice}
             type={info.type}

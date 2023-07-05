@@ -41,11 +41,7 @@ export default function Home() {
         </p>
 
         <form onSubmit={handleSubmit}>
-          <SearchInput
-            // value={query}
-            // onChange={(e: any) => setQuery(e.target.value)}
-            name="input"
-          />
+          <SearchInput name="input" />
         </form>
       </div>
 
@@ -55,6 +51,7 @@ export default function Home() {
             return (
               <ProductCard
                 key={info.id}
+                id={info.id}
                 image={info.imageUrl}
                 title={info.title}
                 location={`${info.neighbourhood}, ${info.city} - ${info.state}`}

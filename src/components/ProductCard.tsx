@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface ProductCardInterface {
   image: string
@@ -6,6 +7,7 @@ interface ProductCardInterface {
   title: string
   location: string
   price: string
+  id: string
 }
 
 export default function ProductCard({
@@ -14,9 +16,13 @@ export default function ProductCard({
   title,
   location,
   price,
+  id,
 }: ProductCardInterface) {
   return (
-    <div className="keen-slider__slide flex h-[350px] w-full flex-col rounded-lg border">
+    <Link
+      href={`/rental?id=${id}`}
+      className="keen-slider__slide flex h-[350px] w-full flex-col rounded-lg border"
+    >
       <div className="relative grid h-[200px] place-items-center">
         <Image
           src={image}
@@ -40,6 +46,6 @@ export default function ProductCard({
 
         <h2 className="text-3xl font-bold">R$ {price}</h2>
       </section>
-    </div>
+    </Link>
   )
 }

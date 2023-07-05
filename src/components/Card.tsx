@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface CardInterface {
   imageUrl: string
@@ -18,10 +19,13 @@ export default function Card({
   location,
 }: CardInterface) {
   return (
-    <div className="flex cursor-pointer flex-col rounded shadow-md lg:flex-row">
+    <Link
+      href={`/rental?id=${id}`}
+      className="flex cursor-pointer flex-col rounded shadow-md lg:flex-row"
+    >
       <div className="relative grid h-[300px] w-full place-items-center overflow-hidden lg:h-[200px] lg:w-[200px]">
         <Image
-          src="https://avatars.githubusercontent.com/u/70323043?v=4"
+          src={imageUrl}
           alt="product"
           fill={true}
           style={{ objectFit: 'contain' }}
@@ -37,6 +41,6 @@ export default function Card({
         </h5>
         <h5 className="text-slate-500">{location}</h5>
       </div>
-    </div>
+    </Link>
   )
 }
