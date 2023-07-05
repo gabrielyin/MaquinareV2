@@ -10,7 +10,7 @@ export default function Anuncios() {
         <PortalNav />
 
         <div className="grid gap-4">
-          <div className="lg:justify flex flex-col gap-4 lg:flex-row">
+          <div className="lg:justify flex h-fit flex-col gap-4 lg:flex-row">
             <div className="flex items-center justify-between lg:w-full">
               <h3 className="font-sec text-2xl font-semibold">1 Anúncio(s)</h3>
 

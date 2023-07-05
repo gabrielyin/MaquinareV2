@@ -33,7 +33,7 @@ export default function SearchQuery() {
       </div>
 
       <div className="mt-4 grid gap-2 lg:mt-0">
-        <div className="flex gap-3 lg:rounded-lg lg:border lg:p-3">
+        <div className="flex h-fit gap-3 lg:rounded-lg lg:border lg:p-3">
           <div className="flex w-fit cursor-pointer items-center gap-2 rounded-md border-[0.5px] px-2 py-1 font-sec font-semibold transition hover:bg-[#EBE9E4]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
