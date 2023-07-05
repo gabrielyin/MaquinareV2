@@ -25,6 +25,18 @@ export default function AnunciosList() {
   const [ads, setAds] = useState<any>([])
   const session = useSession()
 
+  async function deleteAd(id: string) {
+    await api.delete('/api/ads/delete', {
+      params: {
+        id,
+      },
+    })
+
+    const filteredAds = ads.filter((ad: any) => ad.id !== id)
+
+    setAds(filteredAds)
+  }
+
   useEffect(() => {
     async function getAds() {
       const { data } = await api.get('/api/ads/get', {
@@ -32,7 +44,6 @@ export default function AnunciosList() {
           userId: session.data?.user.id,
         },
       })
-      console.log(data)
 
       setAds(data)
     }
@@ -52,6 +63,7 @@ export default function AnunciosList() {
             rentPrice={info.rentPrice}
             type={info.type}
             location={`${info.city}, ${info.state.toUpperCase()}`}
+            deleteAd={() => deleteAd(info.id)}
           />
         )
       })}
