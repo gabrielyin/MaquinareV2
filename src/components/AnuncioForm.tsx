@@ -8,12 +8,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { api } from '@/src/lib/axios'
 import { useSession } from 'next-auth/react'
+import { supabase } from '../lib/supabase'
+import { useState } from 'react'
+import Image from 'next/image'
 
 const createFormSchema = z.object({
   title: z.string(),
-  imageUrl: z
-    .string()
-    .default('https://avatars.githubusercontent.com/u/70323043?v=4'),
   type: z.string(),
   brand: z.string(),
   model: z.string(),
@@ -30,18 +30,53 @@ type CreateFormData = z.infer<typeof createFormSchema>
 
 export default function AnuncioForm() {
   const session = useSession()
+  const [filename, setFilename] = useState<any>('')
 
   const { register, handleSubmit } = useForm<CreateFormData>({
     resolver: zodResolver(createFormSchema),
   })
 
+  function onChangeFile(e: any) {
+    const file = e.target.files[0]
+
+    setFilename(file)
+  }
+
+  async function uploadFile(file: any) {
+    const newName = new Date().getTime()
+
+    try {
+      const { data } = await supabase.storage
+        .from('maquinare')
+        .upload(`users/${session.data?.user.id}/${newName}.png`, file, {
+          cacheControl: '3600',
+          upsert: false,
+        })
+
+      const { path } = data!
+
+      const { data: publicUrlResponse } = supabase.storage
+        .from('maquinare')
+        .getPublicUrl(path)
+
+      const { publicUrl } = publicUrlResponse
+
+      return publicUrl
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function onFormSubmit(data: CreateFormData) {
-    const response = await api.post('/api/ads/create', {
+    const imageUrl = await uploadFile(filename)
+
+    console.log(imageUrl)
+
+    await api.post('/api/ads/create', {
       ...data,
+      imageUrl,
       userId: session.data?.user.id,
     })
-
-    console.log(response)
   }
 
   return (
@@ -61,7 +96,7 @@ export default function AnuncioForm() {
         <div className="grid grid-cols-2 gap-3">
           <label className="grid h-36 place-items-center rounded border border-slate-300 bg-white shadow-sm">
             <div className="flex gap-2">
-              <input type="file" className="hidden" />
+              <input type="file" className="hidden" onChange={onChangeFile} />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -79,6 +114,17 @@ export default function AnuncioForm() {
               <span className="font-sec font-semibold">Upload</span>
             </div>
           </label>
+
+          {filename && (
+            <div className="relative h-36 overflow-hidden rounded shadow-sm">
+              <Image
+                src={URL.createObjectURL(filename)}
+                alt="image"
+                fill={true}
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
+          )}
         </div>
 
         <TextInput
