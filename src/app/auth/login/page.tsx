@@ -10,6 +10,7 @@ import { signIn, useSession } from 'next-auth/react'
 
 import Button from '@/src/components/Button'
 import TextInput from '@/src/components/TextInput'
+import { useEffect } from 'react'
 
 const loginFormSchema = z.object({
   email: z.string(),
@@ -25,8 +26,6 @@ export default function Login() {
 
   const callbackUrl = searchParams.get('callbackUrl') ?? '/portal/anuncios'
 
-  if (session.status === 'authenticated') router.push(callbackUrl)
-
   const { register, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
   })
@@ -34,8 +33,6 @@ export default function Login() {
   async function onFormSubmit(data: LoginFormData) {
     try {
       const response = await signIn('credentials', { ...data, redirect: false })
-
-      console.log(response)
 
       if (response?.error) {
         toast.error('Usuário não encontrado')
@@ -48,6 +45,10 @@ export default function Login() {
       toast.error('Não foi possível fazer o login')
     }
   }
+
+  useEffect(() => {
+    if (session.status === 'authenticated') router.push(callbackUrl)
+  }, [callbackUrl, router, session.status])
 
   return (
     <div className="min-h-screen p-8">

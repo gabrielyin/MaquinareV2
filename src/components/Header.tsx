@@ -32,7 +32,11 @@ export default function Header() {
           </div>
         ) : (
           <Link
-            href="/auth/login"
+            href={
+              session.status === 'unauthenticated'
+                ? '/auth/login'
+                : '/portal/anuncios'
+            }
             className="rounded border border-neutral-800 bg-transparent px-6 py-1.5 transition hover:border-transparent hover:bg-slate-900 hover:bg-opacity-10 md:hidden"
           >
             <>Entrar</>
