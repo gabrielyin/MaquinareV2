@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import TextInput from './TextInput'
-import { getSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import { api } from '../lib/axios'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,6 +24,7 @@ const updateUserFormSchema = z.object({
 type UpdateFormData = z.infer<typeof updateUserFormSchema>
 
 export default function MeusDadosForm() {
+  const { update } = useSession()
   const [userInfo, setUserInfo] = useState<UserInfoInterface>()
 
   const { register, handleSubmit, setValue } = useForm<UpdateFormData>({
@@ -41,6 +42,10 @@ export default function MeusDadosForm() {
     if (response) {
       toast.success('Dados atualizados com sucesso')
       setUserInfo(response)
+      await update({
+        ...session,
+        user: { ...session?.user, name: response.name },
+      })
     }
   }
 
