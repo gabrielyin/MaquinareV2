@@ -41,18 +41,22 @@ export default function Rental() {
     <div className="mx-auto max-w-6xl">
       <div>
         <div className="relative h-[200px] md:h-[400px]">
-          <Image
-            src={ad.imageUrl}
-            alt="image"
-            fill={true}
-            style={{ objectFit: 'contain' }}
-          />
+          {ad.imageUrl && (
+            <Image
+              src={ad.imageUrl}
+              alt="image"
+              fill={true}
+              style={{ objectFit: 'contain' }}
+            />
+          )}
         </div>
 
         <div className="grid gap-4 p-8 md:grid-cols-[auto,400px] md:gap-8">
           <div className="grid gap-4">
             <div>
-              <p className="font-sec uppercase text-slate-400">{ad.type}</p>
+              <p className="font-sec uppercase text-slate-400">
+                {ad.type && ad.type}
+              </p>
 
               <h2 className="font-sec text-2xl font-semibold">{ad.title}</h2>
 

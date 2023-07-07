@@ -54,9 +54,9 @@ model Ads {
 model Contacts {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  name     String
-  email    String
-  whatsapp String
+  name    String
+  email   String
+  message String
 
   Ads   Ads    @relation(fields: [adsId], references: [id])
   adsId String @db.ObjectId
