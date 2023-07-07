@@ -31,21 +31,29 @@ export default function QueryResult() {
   }, [query])
 
   return (
-    <div className="grid gap-2">
-      {result.map((info: any) => {
-        return (
-          <ProductCardListing
-            key={info._id.toString()}
-            id={info._id}
-            image={info.imageUrl}
-            isNew={true}
-            title={info.title}
-            category={info.type}
-            location={`${info.neighbourhood}, ${info.city} - ${info.state}`}
-            price={info.salePrice}
-          />
-        )
-      })}
+    <div className="grid h-fit gap-4">
+      <div className="h-fit">
+        <h3 className="font-sec text-2xl font-semibold">
+          {result.length} Anúncio(s)
+        </h3>
+      </div>
+
+      <div className="grid gap-2">
+        {result.map((info: any) => {
+          return (
+            <ProductCardListing
+              key={info._id.toString()}
+              id={info._id}
+              image={info.imageUrl}
+              isNew={true}
+              title={info.title}
+              category={info.type}
+              location={`${info.neighbourhood}, ${info.city} - ${info.state}`}
+              price={info.salePrice}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

@@ -32,7 +32,7 @@ export default function SearchQuery() {
         </div>
       </div>
 
-      <div className="mt-4 grid gap-2 lg:mt-0">
+      <div className="mt-4 grid h-fit gap-4 lg:mt-0">
         <div className="flex h-fit gap-3 lg:rounded-lg lg:border lg:p-3">
           <div className="flex w-fit cursor-pointer items-center gap-2 rounded-md border-[0.5px] px-2 py-1 font-sec font-semibold transition hover:bg-[#EBE9E4]">
             <svg
@@ -70,8 +70,6 @@ export default function SearchQuery() {
             Filtrar
           </div>
         </div>
-
-        <h3 className="font-sec text-2xl font-semibold">1 Anúncio(s)</h3>
 
         <QueryResult />
       </div>
