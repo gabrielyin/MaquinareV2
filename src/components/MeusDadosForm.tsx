@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import Button from '@/src/components/Button'
+import { toast } from 'react-hot-toast'
 
 interface UserInfoInterface {
   name: string
@@ -37,7 +38,10 @@ export default function MeusDadosForm() {
       data,
     })
 
-    setUserInfo(response)
+    if (response) {
+      toast.success('Dados atualizados com sucesso')
+      setUserInfo(response)
+    }
   }
 
   useEffect(() => {
