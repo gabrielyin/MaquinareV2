@@ -1,8 +1,13 @@
-interface SearchInputInterface {
+import { InputHTMLAttributes } from 'react'
+
+interface SearchInputInterface extends InputHTMLAttributes<HTMLInputElement> {
   classname?: string
 }
 
-export default function SearchInput({ classname }: SearchInputInterface) {
+export default function SearchInput({
+  classname,
+  ...rest
+}: SearchInputInterface) {
   return (
     <label
       className={`mx-auto flex w-full gap-2 rounded-lg border border-slate-300 bg-[#F9FAFB] p-2.5 font-ter md:mt-6 md:max-w-sm ${classname}`}
@@ -25,6 +30,7 @@ export default function SearchInput({ classname }: SearchInputInterface) {
       <input
         className="flex-1 bg-transparent outline-none"
         placeholder="Pesquisar..."
+        {...rest}
       />
     </label>
   )

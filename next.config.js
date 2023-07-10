@@ -3,8 +3,8 @@ const nextConfig = {
   images: {
     domains: [
       'avatars.githubusercontent.com',
-      'img.lojadomecanico.com.br',
       'images.unsplash.com',
+      'qighkjkmhfikasepsjku.supabase.co',
     ],
   },
 }
