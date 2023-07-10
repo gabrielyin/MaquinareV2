@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface ProductCardListingInterface {
   image: string
@@ -7,6 +8,7 @@ interface ProductCardListingInterface {
   category: string
   location: string
   price: string
+  id: string
 }
 
 export default function ProductCardListing({
@@ -16,9 +18,13 @@ export default function ProductCardListing({
   category,
   location,
   price,
+  id,
 }: ProductCardListingInterface) {
   return (
-    <div className="flex h-[350px] w-full flex-col overflow-hidden rounded-lg border md:h-[200px] md:flex-row">
+    <Link
+      href={`/rental?id=${id}`}
+      className="flex h-[350px] w-full flex-col overflow-hidden rounded-lg border md:h-[200px] md:flex-row"
+    >
       <div className="relative grid h-[200px] place-items-center md:w-[250px]">
         <Image
           src={image}
@@ -47,6 +53,6 @@ export default function ProductCardListing({
 
         <h2 className="text-3xl font-bold">R$ {price}</h2>
       </section>
-    </div>
+    </Link>
   )
 }

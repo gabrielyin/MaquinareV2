@@ -1,4 +1,4 @@
-import ContactCard from '@/src/components/ContactCard'
+import ContactList from '@/src/components/ContactList'
 import PortalNav from '@/src/components/PortalNav'
 
 export default function Contatos() {
@@ -8,20 +8,16 @@ export default function Contatos() {
 
       <div className="grid gap-7">
         <section>
-          <h3 className="font-sec text-2xl font-semibold">Perfil</h3>
+          <h3 className="font-sec text-2xl font-semibold">Contatos</h3>
           <span>
             <p className="font-sec leading-tight">
-              Essas são as informações usadas para acessar a sua conta no portal
-              do Maquinare
+              Essas são os dados das pessoas que tiveram interesse em algum dos
+              seus anúncios e mandaram uma mensagem
             </p>
           </span>
         </section>
 
-        <section className="grid gap-4 lg:gap-3">
-          <ContactCard name="Michele Yin" email="michele@gmail.com" id="#2" />
-
-          <ContactCard name="Gabriel Yin" email="gabriel@gmail.com" id="#3" />
-        </section>
+        <ContactList />
       </div>
     </div>
   )

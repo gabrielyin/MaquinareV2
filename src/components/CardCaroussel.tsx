@@ -1,7 +1,8 @@
 'use client'
 
-import { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { useKeenSlider } from 'keen-slider/react'
+import ProductCardSkeleton from './ProductCardSkeleton'
 
 interface CardCarousselInterface {
   title: string
@@ -13,6 +14,7 @@ export default function CardCaroussel({
   children,
 }: CardCarousselInterface) {
   const [loaded, setLoaded] = useState(false)
+
   const [sliderRef, instanceRef] = useKeenSlider({
     initial: 0,
     created() {
@@ -35,6 +37,10 @@ export default function CardCaroussel({
     },
   })
 
+  useEffect(() => {
+    instanceRef?.current?.update()
+  }, [instanceRef, children])
+
   return (
     <div className="grid place-items-center gap-5 px-6 py-7">
       <h2 className="text-center font-sec text-2xl font-semibold">{title}</h2>
@@ -43,9 +49,18 @@ export default function CardCaroussel({
 
       <div
         ref={sliderRef}
-        className="keen-slider flex w-full overflow-hidden rounded"
+        className="keen-slider flex min-h-[350px] w-full overflow-hidden rounded"
       >
-        {children}
+        {React.Children.count(children) === 0 ? (
+          <div className="flex w-full gap-2">
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+            <ProductCardSkeleton />
+          </div>
+        ) : (
+          <>{children}</>
+        )}
       </div>
       {loaded && instanceRef.current && (
         <div className="flex w-full justify-end gap-3">
